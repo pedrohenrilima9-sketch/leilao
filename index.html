@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leilão de Futebol</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#050d1a;color:#fff;font-family:Arial,sans-serif}
+a{text-decoration:none}
+.topo{background:linear-gradient(rgba(4,13,29,.78),rgba(4,13,29,.96)),url("https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=1600");background-position:center;background-size:cover;min-height:105px;padding:12px 5%;display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #159eff}
+.logo{text-align:center}.logo span{font-size:13px;letter-spacing:3px}.logo h1{color:#27aaff;font-size:30px;margin-top:5px;letter-spacing:2px}
+.menu{display:flex;gap:12px;flex-wrap:wrap}.menu a{color:white;background:#102b4a;padding:12px 20px;border-radius:10px}
+.menu a:hover{background:#078de5}
+.destaque{min-height:310px;padding:45px 5%;display:flex;align-items:center;background:linear-gradient(90deg,#061225 5%,rgba(5,15,32,.83) 55%,rgba(5,15,32,.2)),url("https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=1600") center/cover;border-bottom:1px solid #147fc4}
+.informacoes-destaque{max-width:600px}.etiqueta{display:inline-block;background:#103b63;color:#29b6ff;padding:9px 16px;border-radius:20px;font-weight:bold;margin-bottom:20px}
+.informacoes-destaque h2{font-size:clamp(25px,4vw,38px);margin-bottom:12px}.informacoes-destaque p{color:#c7d7e9;font-size:17px;line-height:1.6;margin-bottom:20px}
+.botao{display:inline-block;background:linear-gradient(90deg,#007bd1,#00b8ff);color:white;padding:13px 22px;border-radius:25px;font-weight:bold;box-shadow:0 0 15px #009dff4d}
+.mercado{padding:32px 5%;background:#071426;border-bottom:1px solid #123b5c}
+.titulo{font-size:23px;margin-bottom:20px}.titulo span{color:#19aaff}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.card{display:flex;align-items:center;gap:15px;background:#10243c;padding:22px;border-radius:12px;border:1px solid #183b5d}
+.icone{font-size:35px}.card h3{color:#29b6ff;margin-bottom:8px}.card p{color:#b6c6d8;font-size:14px;line-height:1.5}
+.acesso{padding:45px 5%;background:linear-gradient(90deg,#061225 15%,rgba(5,15,32,.7)),url("https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=1600") center/cover;border-top:1px solid #147fc4}
+.acesso h2{font-size:26px;margin-bottom:12px}.acesso p{color:#c4d4e5;margin-bottom:20px}
+footer{background:#030914;text-align:center;padding:22px;color:#8ca4bb;font-size:13px;border-top:1px solid #123b5c}
+@media(max-width:700px){.topo{flex-direction:column;gap:18px}.logo h1{font-size:24px}.menu{width:100%;justify-content:center}.menu a{padding:10px 16px}.destaque{min-height:290px;padding:30px 6%}.cards{grid-template-columns:1fr}.acesso h2{font-size:21px}}
+</style>
+</head>
+<body>
+<header class="topo"><div class="logo"><span>LEILÃO</span><h1>DE FUTEBOL</h1></div><nav class="menu"><a href="Sala.html">Salas</a></nav></header>
+<main>
+<section class="destaque"><div class="informacoes-destaque"><span class="etiqueta">⚽ LEILÃO MULTIPLAYER & MATA-MATA</span><h2>MONTE SEU TIME. CONQUISTE O TÍTULO.</h2><p>Leilão por ciclo de posições, craques globais e do Brasileirão (EA FC), pausa tática, mata-mata com gols detalhados e aba exclusiva de Artilharia do Campeonato!</p><a href="Sala.html" class="botao">JOGAR AGORA →</a></div></section>
+<section class="mercado"><h2 class="titulo"><span>▥</span> COMO FUNCIONA</h2><div class="cards">
+<div class="card"><span class="icone">🏟️</span><div><h3>Sala Numérica Rápida</h3><p>Crie uma sala com código numérico de 6 dígitos e conecte sem travamentos.</p></div></div>
+<div class="card"><span class="icone">⏸️</span><div><h3>Pausa com Campo Tático</h3><p>O anfitrião pausa o leilão para todos editarem formação e escalação com salvamento automático.</p></div></div>
+<div class="card"><span class="icone">🏆</span><div><h3>Mata-Mata & Artilharia</h3><p>Simulação detalhada exibindo artilheiros, minutos e uma aba exclusiva com a Tabela de Artilharia do Torneio!</p></div></div>
+</div></section>
+<section class="acesso"><h2>🏆 PRONTO PARA O TORNEIO?</h2><p>Entre em uma sala ou crie a sua para começar o leilão.</p><a href="Sala.html" class="botao">ACESSAR AS SALAS →</a></section>
+</main>
+<footer>© 2026 Leilão de Futebol — Torneio de Mata-Mata</footer>
+</body></html>

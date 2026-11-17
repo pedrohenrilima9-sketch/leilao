@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Salas & Leilão | Leilão de Futebol</title>
+<link rel="stylesheet" href="sala.css">
+<link rel="stylesheet" href="leilao.css">
+<script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+<script src="script_jogadores.js"></script>
+<script src="sala.js" defer></script>
+</head>
+<body>
+<header>
+  <a class="marca" href="index.html">⚽ LEILÃO DE FUTEBOL</a>
+  <div style="display:flex;gap:12px;align-items:center;">
+    <span id="roomLabel" style="color:#b8cce0;font-weight:bold;"></span>
+    <a class="voltar" href="index.html">Início</a>
+  </div>
+</header>
+
+<!-- TELA 1: LOBBY DA SALA -->
+<main id="telaLobby">
+<section class="intro"><span class="tag">TORNEIO MATA-MATA</span><h1>Salas Online</h1><p>Crie uma sala ou digite apenas os 6 números do código para entrar.</p></section>
+<section class="painel">
+<div class="bloco"><h2>➕ Criar sala</h2><label for="nomeCriador">Seu nome</label><input id="nomeCriador" maxlength="18" placeholder="Digite seu nome"><button id="criarSala">Criar sala</button><p class="nota">Você será o anfitrião e poderá pausar o leilão para todos organizarem o time.</p></div>
+<div class="separador"></div>
+<div class="bloco"><h2>🚪 Entrar em uma sala</h2><label for="nomeConvidado">Seu nome</label><input id="nomeConvidado" maxlength="18" placeholder="Digite seu nome"><label for="codigoSala">Código da sala (só números)</label><input id="codigoSala" maxlength="6" inputmode="numeric" placeholder="Ex.: 482910" autocomplete="off"><button id="entrarSala" class="secundario">Entrar na sala</button></div>
+</section>
+<section id="status" class="status" aria-live="polite">Pronto para jogar.</section>
+<section id="salaAtiva" class="sala-ativa escondido"><div class="cabecalho-sala"><div><small>CÓDIGO DA SALA</small><h2 id="codigoExibido">------</h2></div><button id="copiarCodigo" class="secundario">Copiar código</button></div><h3>Jogadores conectados</h3><ul id="listaParticipantes"></ul><p id="avisoAnfitriao" class="nota"></p><button id="iniciarLeilao" class="iniciar escondido">Iniciar leilão</button></section>
+</main>
+
+<!-- TELA 2: LEILÃO AO VIVO & TIME PRINCIPAL -->
+<main id="telaJogo" class="escondido">
+  <section class="top">
+    <div>
+      <small>LEILÃO AO VIVO</small>
+      <h1>Dispute os craques</h1>
+      <p id="conexao">Conectado</p>
+    </div>
+    <div class="saldo">
+      <small>SEU ORÇAMENTO</small>
+      <strong id="saldo">€ 500.000.000</strong>
+    </div>
+  </section>
+
+  <section id="areaLeilao" class="layout">
+    <article class="jogador-atual">
+      <div class="etiqueta" id="etiquetaCiclo">JOGADOR EM LEILÃO</div>
+      <div class="avatar" id="avatar">⚽</div>
+      <h2 id="nomeJogador">Preparando leilão...</h2>
+      <p id="dadosJogador">Aguarde o primeiro jogador.</p>
+
+      <div class="lance">
+        <small>MAIOR LANCE</small>
+        <strong id="maiorLance">€ 0</strong>
+        <span id="maiorLicitante">Nenhum lance ainda (Começa em € 0)</span>
+      </div>
+
+      <div class="timer" id="timer">10s</div>
+
+      <div class="acoes">
+        <button id="darLance" disabled>Dar lance (+ € 1.000.000)</button>
+        <button id="darLance5" class="secundario" disabled>+ € 5M</button>
+        <button id="darLance10" class="secundario" disabled>+ € 10M</button>
+        <button id="passar" class="secundario" disabled>Passar</button>
+      </div>
+      <p id="mensagem" class="mensagem"></p>
+    </article>
+
+    <aside>
+      <h2>Participantes & Times</h2>
+      <ul id="participantes"></ul>
+
+      <div id="areaControleAnfitriao" class="escondido" style="margin-top:20px; border-top:1px solid #183b5d; padding-top:15px;">
+        <h2 style="font-size:16px; margin-bottom:10px;">Painel do Anfitrião</h2>
+        <button id="botaoPausaGlobal" style="width:100%; background:linear-gradient(90deg,#ff8800,#ffaa00); color:#050d1a; font-weight:bold; padding:12px; border-radius:8px; margin-bottom:10px;">⏸️ Pausar Leilão (Arrumar Time)</button>
+        <button id="botaoEncerrarLeilao" style="width:100%; background:linear-gradient(90deg,#00b8ff,#007bd1); color:#fff; font-weight:bold; padding:12px; border-radius:8px;">🏆 Encerrar Leilão & Iniciar Torneio</button>
+      </div>
+
+      <h2 class="subtitulo">Histórico recente</h2>
+      <ul id="historico"></ul>
+    </aside>
+  </section>
+
+  <!-- SEÇÃO DO TIME PRINCIPAL -->
+  <section id="secTimePrincipal" class="painel-escalacao">
+    <div class="topo-escalacao">
+      <div>
+        <small>SEU TIME PRINCIPAL</small>
+        <h2>⚽ Minha Escalação (<span id="titularesCount">0</span>/11) • Média Overall: <strong id="mediaOverallMain" style="color:#5ee0ae">0.0</strong></h2>
+        <p class="sub-escalacao">As alterações feitas durante a pausa ficam salvas aqui no seu time principal.</p>
+      </div>
+      <div class="controles-formacao">
+        <span style="color:#9fb4c9; font-size:14px;">Formação atual: <strong id="formacaoAtualLabel" style="color:#27aaff">4-3-3</strong></span>
+      </div>
+    </div>
+
+    <div class="escalacao-grid">
+      <div class="campo">
+        <div class="linha-meio"></div>
+        <div class="circulo-meio"></div>
+        <div class="area area-superior"></div>
+        <div class="area area-inferior"></div>
+        <div id="campoJogadoresPrincipal"></div>
+      </div>
+
+      <div class="banco-box">
+        <h3>Jogadores contratados (Banco / Reserva)</h3>
+        <p class="nota-banco">Use a pausa do anfitrião para reorganizar formação e titulares.</p>
+        <div id="listaBancoPrincipal" class="lista-banco"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODAL DE PAUSA GLOBAL -->
+  <div class="modal" id="modalPausaGlobal">
+    <div class="modal-conteudo-largo">
+      <div class="topo-modal-pausa">
+        <div>
+          <span class="etiqueta" style="background:#ff8800; color:#050d1a;">⏸️ LEILÃO PAUSADO PELO ANFITRIÃO</span>
+          <h2 style="color:#ffaa00; margin-top:8px;">Edite sua Formação e Escalação</h2>
+          <p class="pos-modal">Troque a formação, clique nas vagas ou nos jogadores do banco para escalar. Ao retomar, tudo fica salvo no seu time principal!</p>
+        </div>
+        <div class="stat-box-topo">
+          <small>Média de Overall</small>
+          <strong id="mediaOverallModal">0.0</strong>
+          <small style="margin-top:4px; color:#b8cce0;">Titulares: <span id="titularesModalCount">0 / 11</span></small>
+        </div>
+      </div>
+
+      <div class="controles-formacao" style="margin-bottom: 15px;">
+        <label for="formacaoModal" style="color:#27aaff; font-weight:bold;">Escolher Formação:</label>
+        <select id="formacaoModal">
+          <option value="4-3-3">4-3-3</option>
+          <option value="4-2-3-1">4-2-3-1</option>
+          <option value="4-4-2">4-4-2</option>
+          <option value="3-5-2">3-5-2</option>
+          <option value="3-4-3">3-4-3</option>
+        </select>
+      </div>
+
+      <div class="escalacao-grid">
+        <div class="campo">
+          <div class="linha-meio"></div>
+          <div class="circulo-meio"></div>
+          <div class="area area-superior"></div>
+          <div class="area area-inferior"></div>
+          <div id="campoJogadoresModal"></div>
+        </div>
+
+        <div class="banco-box">
+          <h3>Jogadores contratados (Banco / Reserva)</h3>
+          <p class="nota-banco">Clique em um jogador do banco para escalar na posição desejada.</p>
+          <div id="listaBancoModal" class="lista-banco"></div>
+        </div>
+      </div>
+
+      <div style="margin-top:20px; text-align:center;" id="areaBotaoRetomar"></div>
+    </div>
+  </div>
+
+  <!-- RESULTADOS DO MATA-MATA E ARTILHARIA -->
+  <section id="resultados" class="resultados escondido">
+    <h2>🏆 TORNEIO MATA-MATA & ARTILHARIA</h2>
+    <p class="sub-resultados">Simulação detalhada com chaveamento e a tabela de artilheiros do torneio:</p>
+    
+    <!-- ABAS DE NAVEGAÇÃO DOS RESULTADOS -->
+    <div class="abas-resultados">
+      <button id="btnTabMataMata" class="aba-btn ativa" onclick="mudarAbaResultados('matamata')">⚡ Chaveamento Mata-Mata</button>
+      <button id="btnTabArtilharia" class="aba-btn" onclick="mudarAbaResultados('artilharia')">👟 Artilharia do Campeonato</button>
+    </div>
+
+    <!-- CONTEÚDO 1: CHAVEAMENTO -->
+    <div id="conteudoMataMata" class="conteudo-aba">
+      <div id="bracketContainer" class="bracket-container"></div>
+    </div>
+
+    <!-- CONTEÚDO 2: ARTILHARIA -->
+    <div id="conteudoArtilharia" class="conteudo-aba escondido">
+      <div class="artilharia-box">
+        <h3>🏅 Tabela de Artilheiros do Torneio</h3>
+        <p class="sub-resultados">Ranking oficial de gols marcados durante todas as fases do mata-mata:</p>
+        <table class="tabela-artilharia">
+          <thead>
+            <tr>
+              <th>Pos</th>
+              <th>Jogador</th>
+              <th>Time</th>
+              <th>Gols</th>
+            </tr>
+          </thead>
+          <tbody id="corpoTabelaArtilheiros">
+            <!-- Preenchido via JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <button onclick="location.href='Sala.html'" style="margin-top:25px">Voltar às salas</button>
+  </section>
+</main>
+
+<!-- MODAIS AUXILIARES PARA ESCOLHA -->
+<div class="modal" id="modalJogadores">
+  <div class="modal-conteudo">
+    <button class="fechar" id="fecharModal">×</button>
+    <h2>Escolher jogador para a vaga</h2>
+    <p id="posicaoSelecionada" class="pos-modal"></p>
+    <div id="opcoesJogadores"></div>
+  </div>
+</div>
+
+<div class="modal" id="modalPosicoes">
+  <div class="modal-conteudo">
+    <button class="fechar" id="fecharModalPos">×</button>
+    <h2>Onde escalar este jogador?</h2>
+    <p id="jogadorParaEscalar" class="pos-modal"></p>
+    <div id="opcoesPosicoes"></div>
+  </div>
+</div>
+
+<footer>Conexão direta entre navegadores • Torneio com Artilharia Completa</footer>
+</body></html>

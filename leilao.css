@@ -1,0 +1,117 @@
+#telaJogo{width:min(1150px,94%);margin:24px auto 50px}
+
+.top{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:20px}
+.top small,.saldo small,.topo-escalacao small{color:#27aaff;letter-spacing:1.5px;font-weight:bold}
+.top h1{font-size:clamp(24px,4vw,32px);margin:6px 0}
+.top p{color:#adc2d8}
+.saldo{background:#102944;border:1px solid #27aaff;padding:14px 18px;border-radius:10px;min-width:200px}
+.saldo strong{display:block;margin-top:6px;color:#64d6ff;font-size:20px}
+
+.layout{display:grid;grid-template-columns:1.4fr 1fr;gap:20px}
+.jogador-atual,aside,.resultados,.painel-escalacao{background:#09172a;border:1px solid #183b5d;border-radius:14px;padding:22px}
+.jogador-atual{text-align:center}
+.etiqueta{display:inline-block;background:#103b63;color:#29b6ff;border-radius:20px;padding:8px 14px;font-size:12px;font-weight:bold}
+.avatar{width:90px;height:90px;margin:14px auto 8px;border-radius:50%;display:grid;place-items:center;background:#102944;border:2px solid #27aaff;font-size:42px}
+.jogador-atual h2{font-size:24px}
+.jogador-atual>p{color:#b8cce0;margin:6px 0 14px}
+
+.lance{display:grid;gap:5px;background:#102944;padding:14px;border-radius:10px}
+.lance small{color:#9fb4c9}
+.lance strong{font-size:26px;color:#5ee0ae}
+.lance span{color:#c2d4e6}
+.timer{font-size:28px;font-weight:bold;color:#27aaff;margin:12px}
+
+.acoes{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+button{border:0;border-radius:8px;background:linear-gradient(90deg,#007bd1,#00b8ff);color:#fff;padding:12px 18px;font-weight:bold;cursor:pointer}
+button:disabled{opacity:.4;cursor:not-allowed}
+.secundario{background:#102944;border:1px solid #27aaff}
+.mensagem{min-height:20px;font-size:13px;color:#ffcf70!important;margin-top:10px}
+
+aside h2{font-size:18px;color:#27aaff;margin-bottom:12px}
+aside ul{list-style:none;display:grid;gap:8px;max-height:190px;overflow-y:auto}
+aside li{background:#102944;border-radius:7px;padding:10px;font-size:13px}
+.subtitulo{margin-top:20px}
+
+.painel-escalacao{margin-top:24px}
+.topo-escalacao{display:flex;justify-content:space-between;align-items:flex-end;gap:15px;flex-wrap:wrap;margin-bottom:20px;padding-bottom:15px;border-bottom:1px solid #183b5d}
+.topo-escalacao h2{font-size:21px;margin:4px 0}
+.sub-escalacao{color:#9fb4c9;font-size:13px}
+.controles-formacao{display:flex;align-items:center;gap:10px}
+.controles-formacao select{padding:10px 14px;border-radius:8px;border:1px solid #27aaff;background:#102944;color:#fff;font-size:15px;font-weight:bold;cursor:pointer}
+
+.modal{display:none;position:fixed;inset:0;background:#000d;z-index:20;justify-content:center;align-items:center;padding:15px}
+.modal.ativo{display:flex}
+.modal-conteudo-largo{width:100%;max-width:980px;max-height:92vh;overflow:auto;background:#09172a;border:2px solid #ffaa00;border-radius:14px;padding:24px;position:relative}
+.topo-modal-pausa{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;margin-bottom:15px;border-bottom:1px solid #183b5d;padding-bottom:12px}
+.stat-box-topo{background:#102944;border:1px solid #ffaa00;padding:10px 16px;border-radius:10px;text-align:center}
+.stat-box-topo small{display:block;color:#9fb4c9}
+.stat-box-topo strong{font-size:22px;color:#5ee0ae}
+
+.escalacao-grid{display:grid;grid-template-columns:1.6fr 1fr;gap:20px;align-items:start}
+.campo{width:100%;height:540px;position:relative;overflow:hidden;border:3px solid #fff;border-radius:12px;background:linear-gradient(135deg,#147344,#087b43);padding:16px 8px}
+.linha-meio{position:absolute;top:50%;width:100%;height:2px;background:#ffffff99;left:0}
+.circulo-meio{position:absolute;width:100px;height:100px;border:2px solid #ffffff99;border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%)}
+.area{position:absolute;left:25%;width:50%;height:55px;border:2px solid #ffffff99}
+.area-superior{top:0;border-top:0}
+.area-inferior{bottom:0;border-bottom:0}
+#campoJogadoresModal,#campoJogadoresPrincipal{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:space-between}
+.linha-jogadores{display:flex;justify-content:space-around;align-items:center;gap:4px}
+
+.card-jogador{width:88px;min-height:96px;background:#09172a;border:2px solid #27aaff;border-radius:10px;padding:5px 3px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;cursor:pointer;box-shadow:0 4px 12px #0006;transition:transform .15s}
+.card-jogador:hover{transform:scale(1.04);border-color:#5ee0ae}
+.card-jogador.vazio{border-style:dashed;background:#09172ad9}
+.foto-jogador{width:30px;height:30px;border-radius:50%;background:#183b5d;border:2px solid #27aaff;display:grid;place-items:center;margin-bottom:3px;font-weight:bold;font-size:12px}
+.card-jogador strong{font-size:10px;overflow-wrap:anywhere}
+.card-jogador small{color:#5ee0ae;font-size:9px;font-weight:bold}
+.card-jogador.vazio small{color:#9fb4c9;font-weight:normal}
+.posicao{font-size:8px;color:#27aaff;margin:2px 0;font-weight:bold}
+.perna-tag{font-size:7px;color:#ffaa00;background:#1a2b3c;padding:1px 3px;border-radius:3px;margin-top:2px}
+
+.banco-box{background:#102944;border:1px solid #183b5d;border-radius:12px;padding:16px}
+.banco-box h3{color:#27aaff;font-size:16px;margin-bottom:6px}
+.nota-banco{color:#b8cce0;font-size:11px;margin-bottom:12px}
+.lista-banco{display:grid;gap:8px;max-height:430px;overflow-y:auto}
+.item-banco{background:#09172a;border:1px solid #27aaff;border-radius:8px;padding:10px 12px;display:flex;justify-content:space-between;align-items:center;cursor:pointer}
+.item-banco:hover{background:#153659}
+.item-banco span{color:#5ee0ae;font-size:12px;font-weight:bold}
+
+.resultados{margin-top:24px;border-color:#5ee0ae}
+.resultados h2{color:#5ee0ae;margin-bottom:8px}
+.sub-resultados{color:#b8cce0;margin-bottom:16px;font-size:14px}
+
+/* ABAS DE RESULTADOS */
+.abas-resultados{display:flex;gap:10px;margin-bottom:20px}
+.aba-btn{background:#102944;border:1px solid #183b5d;color:#b8cce0;padding:10px 18px;border-radius:8px;font-weight:bold;cursor:pointer}
+.aba-btn.ativa{background:linear-gradient(90deg,#007bd1,#00b8ff);color:#fff;border-color:#27aaff}
+.conteudo-aba.escondido{display:none}
+
+.bracket-container{display:grid;grid-template-columns:repeat(4, 1fr);gap:15px;overflow-x:auto;padding-bottom:15px}
+.fase-col{background:#102944;border-radius:10px;padding:12px;border:1px solid #183b5d}
+.fase-col h3{color:#27aaff;font-size:15px;margin-bottom:10px;text-align:center;border-bottom:1px solid #183b5d;padding-bottom:6px}
+.jogo-mata{background:#09172a;border:1px solid #27aaff;border-radius:8px;padding:10px;margin-bottom:10px;font-size:13px}
+.time-jogo{display:flex;justify-content:space-between;padding:3px 0}
+.time-jogo.vencedor{color:#5ee0ae;font-weight:bold}
+.gols-detalhe{font-size:11px;color:#b8cce0;margin-top:4px;border-top:1px dashed #183b5d;padding-top:3px;text-align:left}
+
+/* TABELA DE ARTILHARIA */
+.artilharia-box{background:#102944;border:1px solid #183b5d;border-radius:10px;padding:16px}
+.tabela-artilharia{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
+.tabela-artilharia th,.tabela-artilharia td{padding:10px 12px;text-align:left;border-bottom:1px solid #183b5d}
+.tabela-artilharia th{color:#27aaff;background:#09172a}
+.tabela-artilharia tr:hover{background:#0f2238}
+
+.modal-conteudo{width:100%;max-width:440px;max-height:80vh;overflow:auto;background:#09172a;border:1px solid #27aaff;border-radius:14px;padding:24px;position:relative}
+.modal-conteudo h2{color:#27aaff;margin-bottom:6px;font-size:20px}
+.pos-modal{color:#b8cce0;margin-bottom:14px;font-size:14px}
+.fechar{position:absolute;top:12px;right:12px;padding:6px 12px;background:#102944}
+.opcao-jogador{width:100%;display:flex;justify-content:space-between;align-items:center;margin:7px 0;background:#102944;text-align:left;border:1px solid #183b5d}
+.opcao-jogador:hover{border-color:#27aaff}
+.opcao-jogador span{color:#5ee0ae}
+
+@media(max-width:900px){
+  .layout,.escalacao-grid,.bracket-container{grid-template-columns:1fr}
+  .campo{height:460px}
+  .card-jogador{width:70px;min-height:82px;padding:3px 2px}
+  .foto-jogador{width:26px;height:26px;font-size:10px}
+  .card-jogador strong{font-size:9px}
+}
